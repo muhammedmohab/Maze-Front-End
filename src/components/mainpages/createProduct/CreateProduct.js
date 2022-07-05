@@ -11,7 +11,8 @@ const initialState = {
     description: 'Loading...',
     content: 'Loading...',
     category: '',
-    _id: ''
+    _id: '',
+    stock:''
 }
 
 function CreateProduct() {
@@ -153,6 +154,12 @@ function CreateProduct() {
                     <label htmlFor="price">Price</label>
                     <input type="number" name="price" id="price" required
                     value={product.price} onChange={handleChangeInput} />
+                </div>
+
+                <div className="row">
+                    <label htmlFor="stock">Stock</label>
+                    <input type="number" name="stock" id="stock" required
+                    value={product.stock} onChange={handleChangeInput} />
                 </div>
                 
 

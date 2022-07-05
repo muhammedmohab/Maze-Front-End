@@ -2,14 +2,18 @@ import React, {useContext, useState, useEffect} from 'react'
 import {GlobalState} from '../../../GlobalState'
 import axios from 'axios'
 import PaypalButton from './PaypalButton'
+import { useNavigate  } from 'react-router-dom'
 
 function Cart() {
+    const navigate = useNavigate()
     const state = useContext(GlobalState)
     const [cart, setCart] = state.userAPI.cart
     const [token] = state.token
     const [total, setTotal] = useState(0)
+    // const [outstock , setOutstock] = useState(false)
 
     useEffect(() =>{
+        console.log(cart)
         const getTotal = () =>{
             const total = cart.reduce((prev, item) => {
                 return prev + (item.price * item.quantity)
@@ -31,7 +35,7 @@ function Cart() {
 
     const increment = (id) =>{
         cart.forEach(item => {
-            if(item._id === id){
+            if(item._id === id ){
                 item.quantity += 1
             }
         })
@@ -74,6 +78,8 @@ function Cart() {
         setCart([])
         addToCart([])
         alert("You have successfully placed an order.")
+        window.location.reload()
+        navigate("/")
     }
 
 
@@ -97,7 +103,7 @@ function Cart() {
                             <div className="amount">
                                 <button onClick={() => decrement(product._id)}> - </button>
                                 <span>{product.quantity}</span>
-                                <button onClick={() => increment(product._id)}> + </button>
+                                <button disabled={product.stock===0 || product.stock===product.quantity } onClick={() => increment(product._id)}> + </button>
                             </div>
                             
                             <div className="delete" 

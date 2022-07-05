@@ -18,7 +18,7 @@ function ProductItem({product, isAdmin, deleteProduct, handleCheck}) {
             </div>
 
             
-            <BtnRender product={product} deleteProduct={deleteProduct} />
+            <BtnRender product={product} deleteProduct={deleteProduct} stock = {product.stock} />
         </div>
     )
 }
